@@ -1,0 +1,44 @@
+.showLogin {
+    margin-left: 0px;
+}
+
+.showSignup {
+    margin-left: -50px;
+}
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.facebook_button {
+    display: inline-block;
+    background: #627aac url('/assets/img/facebook_icon.png') left no-repeat;
+    border-top: 1px solid #29447e;
+    border-right: 1px solid #29447e;
+    border-bottom: 1px solid #1a356e;
+    border-left: none;
+    height: 22px;
+    padding-right: 7px;
+    padding-left: 29px;
+    font-weight: bold;
+    font-size: 11px;
+    color: white;
+    text-decoration: none;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+    line-height: 22px;
+    cursor: pointer;
+}

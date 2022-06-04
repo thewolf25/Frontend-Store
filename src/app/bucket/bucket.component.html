@@ -1,0 +1,133 @@
+<div class="main">
+    <h1>Shopping cart</h1>
+    <h2 class="sub-heading">Free shipping from $100!</h2>
+
+    <section class="shopping-cart">
+        <ol class="ui-list shopping-cart--list" id="shopping-cart--list">
+
+            <div id="shopping-cart--list-item-template" type="text/template" *ngFor="let product of getProducts()">
+                <li class="_grid shopping-cart--list-item">
+                    <div class="_column product-image">
+                        <img class="product-image--img" src="assets/img/{{product.photoName}}" style="width:100%" alt="Item image" />
+                    </div>
+                    <div class="_column product-info">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-3">Product Name</th>
+                                    <th scope="col" class="col-3">SKU</th>
+                                    <th scope="col" class="col-3">Single Price</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td class="col-4">
+                                    <div class="product">{{product.nom}}</div>
+                                </td>
+                                <td class="col-4">
+                                    <div class="product">{{product.id}}</div>
+                                </td>
+
+                                <td class="col-4">
+                                    <div class="product" class="">{{parsePrice(product.currentPrice)}} $</div>
+                                </td>
+
+
+                                <tr>
+                        </table>
+                    </div>
+                    <div class="_column product-modifiers" data-product-price="product.currentPrice">
+                        <div class="_grid">;
+                            <button class="_btn _column product-subtract" (click)="minusQuantity(product.id)">-</button>
+                            <div class="_column product-qty">{{product.count}}</div>
+                            <button class="_btn _column product-plus" (click)="plusQuantity(product.id)">+</button>
+                        </div>
+                        <button class="_btn entypo-trash product-remove " (click)="delete_orders(product)">Remove</button>
+                        <div class="price product-total-price">{{parsePrice (product.currentPrice * product.count )}} $</div>
+                    </div>
+                </li>
+            </div>
+
+        </ol>
+
+        <footer class="_grid cart-totals">
+            <div class="_column subtotal" id="subtotalCtr">
+                <div class="cart-totals-key">Subtotal</div>
+                <div class="cart-totals-value">${{getTotalPrice()}}</div>
+            </div>
+            <div class="_column shipping" id="shippingCtr">
+                <div class="cart-totals-key">Shipping</div>
+                <div class="cart-totals-value">${{ shipping }}</div>
+            </div>
+            <div class="_column taxes" id="taxesCtr">
+                <div class="cart-totals-key">Taxes ({{taxes * 100 }} %)</div>
+                <div class="cart-totals-value">${{ parsePrice(getTotalPrice() * taxes)}}</div>
+            </div>
+            <div class="_column total" id="totalCtr">
+                <div class="cart-totals-key">Total</div>
+                <div class="cart-totals-value">${{ parsePrice(getTotalPriceSaled()) }}</div>
+            </div>
+            <div class="_column checkout">
+                <button href="#" class="_btn checkout-btn entypo-forward" data-bs-toggle="modal" data-bs-target="#aaaa">Checkout</button>
+            </div>
+        </footer>
+
+    </section>
+
+</div>
+
+<div class="modal fade bg-white" id="aaaa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-body border-0 p-0">
+            <form class="col-md-9 m-auto" method="post" role="form" [formGroup]="checkoutForm" (ngSubmit)="validateForm()">
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="name" required>Nom et Prenom</label>
+                        <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Name" formControlName="name" required>
+                        <div class="error" *ngIf="this.checkoutForm.controls.name.errors">
+
+                            <span *ngIf="this.checkoutForm.controls.name.errors.email">Vous devez choisir une email valide</span>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email" formControlName="email" required>
+                        <div class="error" *ngIf="this.checkoutForm.controls.email.errors">
+
+                            <span *ngIf="this.checkoutForm.controls.email.errors.email">Vous devez choisir une email valide</span>
+                            <span *ngIf="this.checkoutForm.controls.email.errors.required">Vous devez saisir un email</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="telephone">Telephone</label>
+                    <input type="tel" class="form-control mt-1" id="telephone" name="telephone" placeholder="Telephone" formControlName="telephone" required>
+                    <div class="error" *ngIf="this.checkoutForm.controls.telephone.errors">
+
+                        <span *ngIf="this.checkoutForm.controls.telephone.errors.required">Vous devez choisir Minimum 8 caractére</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Adresse</label>
+                    <input type="address" class="form-control mt-1" id="address" name="address" placeholder="Address" formControlName="address" required>
+                    <div class="error" *ngIf="this.checkoutForm.controls.address.errors">
+
+                        <span *ngIf="this.checkoutForm.controls.address.errors.required">Vous devez choisir Minimum 8 caractére</span>
+                    </div>
+                </div>
+                <!-- <div class="mb-3">
+                    <label for="inputmessage">Message</label>
+                    <textarea class="form-control mt-1" id="message" name="message" placeholder="Message" rows="8"></textarea>
+                </div> -->
+                <div class="row">
+                    <div class="col text-end mt-2">
+                        <button type="submit" [disabled]="!checkoutForm.valid" class="btn btn-success btn-lg px-3">Valider la commande</button>
+                    </div>
+                </div>
+                <div id="myPaypalButtons"></div>
+            </form>
+        </div>
+
+    </div>
+</div>

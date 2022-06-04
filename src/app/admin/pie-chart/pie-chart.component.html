@@ -1,0 +1,8 @@
+<mdb-card style="width:max-content">
+
+    <mdb-card-title> {{chartType}}</mdb-card-title>
+    <mdb-card-body>
+        <canvas mdbChart appDashchar [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        </canvas>
+    </mdb-card-body>
+</mdb-card>

@@ -1,0 +1,12 @@
+.card_price,
+.card-title {
+    text-align: center;
+}
+
+.add_to_card {
+    color: green;
+}
+
+.custom_im {
+    height: 350px;
+}
